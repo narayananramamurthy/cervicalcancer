@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Critical Information</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-size: 14px; /* Reduced the base font size */
+        }
+
+        .container {
+            background-color: #fff;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            padding: 15px; /* Reduced padding */
+            width: 100%;
+            max-width: 450px; /* Reduced max width */
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #333;
+            font-size: 18px; /* Reduced header font size */
+        }
+
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px; /* Reduced gap */
+        }
+
+        label {
+            font-weight: bold;
+            color: #555;
+            font-size: 13px; /* Reduced label font size */
+        }
+
+        input[type="number"], input[type="text"] {
+            width: 100%;
+            padding: 6px; /* Reduced padding */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 12px; /* Reduced input font size */
+        }
+
+        input[type="submit"] {
+            grid-column: span 2;
+            width: 100%;
+            background-color: #5cb85c;
+            color: white;
+            padding: 8px; /* Reduced padding */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px; /* Reduced font size */
+            text-transform: uppercase;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #4cae4c;
+        }
+
+        .radio-group {
+            display: flex;
+            align-items: center;
+        }
+
+        .radio-group label {
+            font-weight: normal;
+            color: #333;
+            margin-left: 5px;
+            font-size: 12px; /* Reduced radio label font size */
+        }
+
+        .radio-group input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        .result-container {
+            text-align: center;
+            margin-top: 10px; /* Reduced margin */
+        }
+
+        .message {
+            color: #555;
+            font-size: 16px; /* Reduced font size */
+            margin: 15px 0; /* Reduced margin */
+        }
+
+        .explanation {
+            font-size: 14px; /* Reduced font size */
+            color: #666;
+            margin-bottom: 15px; /* Reduced margin */
+        }
+
+        .next-steps {
+            font-size: 14px; /* Reduced font size */
+            color: #666;
+            margin-bottom: 15px; /* Reduced margin */
+            text-align: left;
+        }
+
+        .next-steps h3 {
+            margin-bottom: 8px; /* Reduced margin */
+            color: #333;
+        }
+
+        .next-steps ul {
+            list-style-type: disc;
+            padding-left: 18px; /* Reduced padding */
+        }
+
+        .btn {
+            display: inline-block; /* Changed from block to inline-block */
+            margin: 15px 5px; /* Adjusted margin for spacing */
+            padding: 8px 15px; /* Reduced padding */
+            border: none;
+            border-radius: 5px;
+            background-color: #5cb85c;
+            color: white;
+            cursor: pointer;
+            text-align: center;
+            text-transform: uppercase;
+            font-size: 14px; /* Reduced font size */
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: #4cae4c;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-top: 15px; /* Reduced margin */
+        }
+
+        .image-description {
+            font-size: 13px; /* Reduced font size */
+            color: #777;
+            margin-top: 8px; /* Reduced margin */
+        }
+
+        .radio-label {
+            grid-column: span 2; /* Make radio label span both columns */
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% if prediction is none %}
+            <h1>Patient Critical Information</h1>
+            <form method="POST">
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age" value="0" required>
+
+                <label for="number_of_sexual_partners">Number of sexual partners:</label>
+                <input type="number" id="number_of_sexual_partners" name="number_of_sexual_partners" value="0" required>
+
+                <label for="first_sexual_intercourse">First sexual intercourse (age):</label>
+                <input type="number" id="first_sexual_intercourse" name="first_sexual_intercourse" value="0" required>
+
+                <label for="number_of_pregnancies">Number of pregnancies:</label>
+                <input type="number" id="number_of_pregnancies" name="number_of_pregnancies" value="0" required>
+
+                <div class="radio-label">
+                    <span>Smokes:</span>
+                    <div class="radio-group">
+                        <input type="radio" id="smokes_yes" name="smokes" value="1" required>
+                        <label for="smokes_yes">Yes</label>
+                        <input type="radio" id="smokes_no" name="smokes" value="0" required>
+                        <label for="smokes_no">No</label>
+                    </div>
+                </div>
+
+                <label for="smokes_years">Smokes (years):</label>
+                <input type="number" id="smokes_years" name="smokes_years" value="0">
+
+                <label for="smokes_packs_year">Smokes (packs/year):</label>
+                <input type="number" id="smokes_packs_year" name="smokes_packs_year" value="0">
+
+                <div class="radio-label">
+                    <span>Hormonal Contraceptives:</span>
+                    <div class="radio-group">
+                        <input type="radio" id="hormonal_contraceptives_yes" name="hormonal_contraceptives" value="1" required>
+                        <label for="hormonal_contraceptives_yes">Yes</label>
+                        <input type="radio" id="hormonal_contraceptives_no" name="hormonal_contraceptives" value="0" required>
+                        <label for="hormonal_contraceptives_no">No</label>
+                    </div>
+                </div>
+
+                <label for="hormonal_contraceptives_years">Hormonal Contraceptives (years):</label>
+                <input type="number" id="hormonal_contraceptives_years" name="hormonal_contraceptives_years" value="0">
+
+                <div class="radio-label">
+                    <span>IUD:</span>
+                    <div class="radio-group">
+                        <input type="radio" id="iud_yes" name="iud" value="1">
+                        <label for="iud_yes">Yes</label>
+                        <input type="radio" id="iud_no" name="iud" value="0">
+                        <label for="iud_no">No</label>
+                    </div>
+                </div>
+
+                <label for="iud_years">IUD (years):</label>
+                <input type="number" id="iud_years" name="iud_years" value="0">
+
+                <div class="radio-label">
+                    <span>STDs:</span>
+                    <div class="radio-group">
+                        <input type="radio" id="stds_yes" name="stds" value="1" required>
+                        <label for="stds_yes">Yes</label>
+                        <input type="radio" id="stds_no" name="stds" value="0" required>
+                        <label for="stds_no">No</label>
+                    </div>
+                </div>
+
+                <div class="radio-label">
+                    <span>Hinselmann:</span>
+                    <div class="radio-group">
+                        <input type="radio" id="hinselmann_yes" name="hinselmann" value="1">
+                        <label for="hinselmann_yes">Yes</label>
+                        <input type="radio" id="hinselmann_no" name="hinselmann" value="0">
+                        <label for="hinselmann_no">No</label>
+                    </div>
+                </div>
+
+                <div class="radio-label">
+                    <span>Schiller:</span>
+                    <div class="radio-group">
+                        <input type="radio" id="schiller_yes" name="schiller" value="1">
+                        <label for="schiller_yes">Yes</label>
+                        <input type="radio" id="schiller_no" name="schiller" value="0">
+                        <label for="schiller_no">No</label>
+                    </div>
+                </div>
+
+                <div class="radio-label">
+                    <span>Citology:</span>
+                    <div class="radio-group">
+                        <input type="radio" id="citology_yes" name="citology" value="1">
+                        <label for="citology_yes">Yes</label>
+                        <input type="radio" id="citology_no" name="citology" value="0">
+                        <label for="citology_no">No</label>
+                    </div>
+                </div>
+
+                <input type="submit" value="Submit">
+            </form>
+        {% else %}
+            <div class="result-container">
+                <h2>Prediction Result</h2>
+                <p class="message">
+                    {% if prediction > 0 %}
+                        <strong>High Risk:</strong> There is a significant likelihood of cervical cancer based on the data provided. Please consult a medical professional immediately.
+                    {% else %}
+                        <strong>Low Risk:</strong> The model indicates a very low probability of cervical cancer based on your provided data. It's still important to maintain regular health check-ups.
+                    {% endif %}
+                </p>
+
+                <div class="explanation">
+                    <p>
+                        {% if prediction > 0 %}
+                            This prediction suggests that several factors in your medical history are associated with a higher risk of cervical cancer. Early detection is key, so it is recommended to consult a healthcare provider as soon as possible for a detailed assessment and possibly further diagnostic tests.
+                        {% else %}
+                            Your input data suggests a low risk based on the model's analysis. However, it's important to understand that no model can provide a perfect diagnosis. Continuing regular screenings and maintaining a healthy lifestyle are essential.
+                        {% endif %}
+                    </p>
+                </div>
+
+                <div class="next-steps">
+                    <h3>Next Steps:</h3>
+                    <ul>
+                        {% if prediction > 0 %}
+                            <li>Contact a gynecologist or healthcare provider for an immediate consultation.</li>
+                            <li>Prepare for possible diagnostic tests, such as a Pap smear, HPV test, or colposcopy.</li>
+                            <li>Discuss with your doctor about lifestyle changes and preventive measures.</li>
+                        {% else %}
+                            <li>Continue with regular gynecological check-ups and screenings.</li>
+                            <li>Maintain a healthy lifestyle, including not smoking, safe sexual practices, and regular exercise.</li>
+                            <li>Stay informed about cervical cancer prevention and early detection strategies.</li>
+                        {% endif %}
+                    </ul>
+                </div>
+
+                {% if image_path %}
+                    <h3>Factors Influencing This Prediction</h3>
+                    <img src="{{ url_for('static', filename='feature_contribution.png') }}" alt="Feature Contribution">
+                    <p class="image-description">The above image shows the factors that had the most influence on this prediction.</p>
+                {% endif %}
+
+                <div>
+                    <a href="{{ url_for('input_form') }}" class="btn">Go Back</a>
+                    <a href="{{ url_for('logout') }}" class="btn">Logout</a>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
